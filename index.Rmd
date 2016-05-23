@@ -1,0 +1,54 @@
+---
+title       : BMI Calculator
+subtitle    : Web-Based App for Calculating Patient Body Mass Index
+author      : D Booher
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+ 
+## What is BMI?
+# Body Mass Index is an important metric for overall patient health.  A simple calculation based on patient height and weight can be used to determine the patient's status as Underweight, Normal, Overweight, or Obese.
+
+--- .class #id 
+
+## BMI Caculator App
+# This app allows patients or healthcare providers to quickly calculate a BMI value and shows a visual indicator of where the patient falls on the BMI scale.  The slider feature on weight allows patients to easily see how weight gains or losses can affect their BMI status.
+
+---
+## Chart
+# The red dot shows the patient's height and weight and the corresponding BMI status.
+```{r, echo=FALSE}
+uw <- function(x) sqrt((703*x)/18.5)
+nm <- function(x) sqrt((703*x)/25)
+ow <- function(x) sqrt((703*x)/30)
+library(ggplot2)
+suppressWarnings(print( ggplot(data.frame(x = c(80, 300)), aes(x))
++  stat_function(fun = uw, colour = "green") +
+        stat_function(fun = nm, colour = "blue") +
+        stat_function(fun = ow, colour = "red") +
+        theme_bw()+
+        scale_y_continuous(name="Height in Inches",expand = c(0,0),limits=c(48,84)) + 
+        scale_x_continuous(name="Weight in Pounds",expand = c(0,0)) +
+        annotate("text", x = 105, y = 80, label = "Underweight",size=5) +
+        annotate("text", x = 185, y = 80, label = "Normal",size=5) +
+        annotate("text", x = 250, y = 80, label = "Overweight",size=5)+
+        annotate("text", x = 265, y = 70, label = "Obese",size=5)+
+        annotate("point",x=200,y=66,size=6,color="red")
+))
+```
+
+---
+
+## BMI Information
+# Patients should always consult with healthcare providers before making weight loss or gain decisions.  More information about BMI can be found at the following links:
+* [http://www.cdc.gov/healthyweight/assessing/bmi/](http://www.cdc.gov/healthyweight/assessing/bmi/)
+* [https://www.heart.org/HEARTORG/HealthyLiving/WeightManagement/BodyMassIndex/Body-Mass-Index-In-Adults-BMI-Calculator-for-Adults_UCM_307849_Article.jsp](https://www.heart.org/HEARTORG/HealthyLiving/WeightManagement/BodyMassIndex/Body-Mass-Index-In-Adults-BMI-Calculator-for-Adults_UCM_307849_Article.jsp)
+* [http://www.nhs.uk/chq/Pages/3215.aspx?CategoryID=51](http://www.nhs.uk/chq/Pages/3215.aspx?CategoryID=51)
+* [http://www.webmd.com/men/weight-loss-bmi](http://www.webmd.com/men/weight-loss-bmi)
+
+
